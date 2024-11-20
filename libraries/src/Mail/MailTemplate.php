@@ -379,7 +379,9 @@ class MailTemplate
                 $htmlBody = $this->replaceTags(Text::_($htmlBody), $this->data);
             }
 
-            $htmlBody = MailHelper::convertRelativeToAbsoluteUrls($htmlBody);
+            if (!$app->isClient('cli')) {
+                $htmlBody = MailHelper::convertRelativeToAbsoluteUrls($htmlBody);
+            }
 
             $this->mailer->setBody($htmlBody);
         }
